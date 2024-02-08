@@ -1,7 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+@media screen and (max-width: 928px) {
+  .responsive-nav {
+    display: none;
+  }
+}
+
+.bg-custom-green {
+  background-color: #04CD3E;
+}
+
+.bg-custom-green:hover {
+  background-color: #00a42e;
+}
 
 @layer base {
   :root {
