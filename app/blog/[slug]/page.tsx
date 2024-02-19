@@ -55,41 +55,44 @@ export default async function BlogArticle({params}: {params: {slug: string}}) {
     const otherArticles = allArticles.filter(article => article.currentSlug !== currentArticle.currentSlug);
     return (
         <div className="mt-8">
-            <h1>
-                <span className="block text-base text-center text-primary font-semibold tracking-wide uppercase"> 
-                Mój Blog Alex
-                </span>
-                <span className="mt-2 block text-3xl text-center leading-8 font-bold tracking-tight sm:text-4xl">
-                    {currentArticle.title}
-                </span>
-            </h1>
-            <Image
-                src={urlFor(currentArticle.titleimage).url()}
-                alt={currentArticle.title}
-                width={500}
-                height={500}
-                priority
-                className="rounded-t-lg mt-8 mx-auto border"
-            />
-
-            <p className="mt-4 text-gray-600 dark:text-gray-300">{currentArticle.smallDescription}</p>
-
             <div className="mt-16 prose prose-blue prose-lg dark:prose-invert">
+                <h1 className="text-left">
+                    <span className="mt-2 block text-3xl leading-8 font-bold tracking-tight sm:text-4xl">
+                        {currentArticle.title}
+                    </span>
+                </h1>
+                <div className="w-full">
+                    <Image
+                        src={urlFor(currentArticle.titleimage).url()}
+                        alt={currentArticle.title}
+                        width={400}
+                        height={400}
+                        priority
+                        className="rounded-t-lg mt-8 border w-full"
+                    />
+                </div>
+
+                <p className="mt-4 text-gray-600 dark:text-gray-300">{currentArticle.smallDescription}</p>
+            </div>
+
+            <div className="mt-16 prose prose-lg dark:prose-invert">
                 <PortableText value={currentArticle.content} />
-                <Link href="/author" className="ml-4">By Alex Luk</Link>
+                <Link href="/author" className="ml-4">Alex Luk</Link>
             </div>
 
             <div className="mt-16">
-                <h2>Other Articles</h2>
+                <h2 className="text-md">Other Articles</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-5 gap-5">
                     {otherArticles.map((post, idx) => ( 
                         <Card key={idx} className="max-w-sm mx-auto">
-                            <Image  src={urlFor(post.titleimage).url()} alt="image" width={500} height={500} className="rounded-t-lg h-[200px] object-cover" />
+                            <div className="w-full">
+                                <Image  src={urlFor(post.titleimage).url()} alt="image" width={500} height={500} className="rounded-t-lg h-[200px] object-cover w-full" />
+                            </div>
                             <CardContent className="mt-5">
                                 <a href={`/blog/${post.currentSlug}`} className="text-lg line-clamp-2 font-bold">{post.title}</a>
-                                <a href={`/blog/${post.currentSlug}`} className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">{post.smallDescription}</a>
-                                <Button asChild className="w-full mt-7">
-                                    <a href={`/blog/${post.currentSlug}`}>Read More</a>
+                                <a href={`/blog/${post.currentSlug}`} className="line-clamp-3 text-sm mt-2 ">{post.smallDescription}</a>
+                                <Button asChild className="w-full mt-7 flex items-center justify-center bg-green-600 text-white">
+                                    <a href={`/blog/${post.currentSlug}`} className="py-2 text-center">Read More</a>
                                 </Button>
                             </CardContent>
                         </Card>
