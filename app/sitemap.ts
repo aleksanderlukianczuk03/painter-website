@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Map slugs to sitemap entries
     const postsSitemap = posts.map((post: { slug: string }) => ({
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`,
+        url: `https://www.immunifaiblog.com/blog/${post.slug}`,
     }));
 
     // Combine all sitemap entries
