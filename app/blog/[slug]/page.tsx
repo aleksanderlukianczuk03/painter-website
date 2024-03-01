@@ -77,7 +77,7 @@ export default async function BlogArticle({params}: {params: {slug: string}}) {
 
             <div className="mt-16 prose prose-lg dark:prose-invert">
                 <PortableText value={currentArticle.content} />
-                <Link href="/author" className="ml-4">Alex Luk</Link>
+                <Link href="/author" className="ml-3">Alex Luk</Link>
             </div>
 
             <div className="mt-16">
