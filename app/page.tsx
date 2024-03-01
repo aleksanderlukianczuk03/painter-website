@@ -41,8 +41,8 @@ export default async function Home() {
     <CardContent className="mt-5">
       <a href={`/blog/${post.currentSlug}`} className="text-lg line-clamp-2 font-bold">{post.title}</a>
       <a href={`/blog/${post.currentSlug}`} className="line-clamp-3 text-sm mt-2 text-gray-600 dark:text-gray-300">{post.smallDescription}</a>
-      <Button asChild className={`w-full mt-7 flex justify-center ${post.title.toLowerCase().includes('Recipe') ? 'bg-green-600' : 'bg-green-600'} text-white`} style={{ alignItems: 'center' }}>
-        <a href={`/blog/${post.currentSlug}`} className="py-2 text-center">{post.title.toLowerCase().includes('Recipe') ? 'See Recipe' : 'Read More'}</a>
+      <Button asChild className={`w-full mt-7 flex justify-center ${post.title.toLowerCase().includes('recipe') ? 'bg-green-600' : 'bg-green-600'} text-white`} style={{ alignItems: 'center' }}>
+        <a href={`/blog/${post.currentSlug}`} className="py-2 text-center">{post.title.toLowerCase().includes('recipe') ? 'See Recipe' : 'Read More'}</a>
       </Button>
     </CardContent>
   </Card>
