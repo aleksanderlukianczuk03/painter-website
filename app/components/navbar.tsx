@@ -1,27 +1,30 @@
 import Link from 'next/link';
-import { ModeToggle } from './ModeToggle';
 import React from 'react';
 
 export default function Navbar() {
   return (
-    <nav className="flex flex-col sm:flex-row items-center justify-center sm:justify-between px-5">
-      <div className="flex items-center justify-center sm:justify-start mb-4 sm:mb-0">
-        <a href="/" className="flex items-center font-bold text-3xl">
-          <img src="\logo-immunifai.png" alt="Logo" className="logo-small w-16 h-16" />
-          <span className="text-xl font-semibold">
-            <span className="text-black">Immunifai </span>
-            <span className="text-green-500">Blog</span>
-          </span>
-        </a >
+    <header className="py-10">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="flex flex-col items-center text-center">
+          {/* Artist Name / Logo */}
+          <Link href="/" className="font-serif text-4xl font-bold tracking-wider mb-6">
+            Your Name
+          </Link>
+
+          {/* Navigation Links */}
+          <nav className="flex items-center space-x-6 md:space-x-8 text-sm uppercase tracking-widest">
+            <Link href="/originals" className="text-muted-foreground hover:text-foreground transition-colors">
+              Originals
+            </Link>
+            <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </Link>
+            <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+              Terms
+            </Link>
+          </nav>
+        </div>
       </div>
-      
-      <div className='flex justify-center space-x-2 text-sm sm:text-sm font-inter font-normal'>
-  <Link href="/" className="text-black hover:text-green-500 border-r border-black pr-2 pl-2 sm:border-0">AI Recipes</Link>
-  <Link href="/" className="text-black hover:text-green-500 border-r border-black pr-2 pl-2 sm:border-0">Community Recipes</Link>
-  <Link href="/" className="text-black hover:text-green-500 border-r border-black pr-2 pl-2 sm:border-0 sm:block hidden">AI Assistant</Link>
-  <Link href="/" className="text-black hover:text-green-500 pr-2 pl-2 sm:border-0">More</Link>
-</div>
-    </nav>
+    </header>
   );
 }
-

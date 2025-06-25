@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 // import { ThemeProvider } from "./components/theme-provider";
 import Navbar from "./components/navbar";
 import Script from 'next/script' 
 
+const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
+const lora = Lora({ subsets: ["latin"], weight: "400", variable: '--font-lora' });
 
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -47,7 +48,7 @@ export default function RootLayout({
         </Script>
         <meta name="google-site-verification" content="IZgAcFb_r097qMjgtbvRUz8QiShiAvyPxLzxDIkb9zk" />
       </head>
-      <body className={inter.className} >
+      <body className={`${inter.variable} ${lora.variable} font-sans`} >
         
             <Navbar />
           

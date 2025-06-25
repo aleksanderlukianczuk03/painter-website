@@ -1,3 +1,3 @@
-import blog from "./blog";
+import painting from "./painting";
 
-export const schemaTypes = [blog]
+export const schemaTypes = [painting];
