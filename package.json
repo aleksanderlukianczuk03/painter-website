@@ -24,6 +24,7 @@
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18",
     "react-responsive-carousel": "^3.2.23",
+    "stripe": "^18.2.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },

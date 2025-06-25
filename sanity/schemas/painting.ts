@@ -44,5 +44,10 @@ export default {
       type: 'string',
       title: 'Dimensions (e.g., 12" x 16")',
     },
+    {
+      name: 'medium',
+      type: 'string',
+      title: 'Medium (Oil ‐ Linen)',
+    },
   ],
 };

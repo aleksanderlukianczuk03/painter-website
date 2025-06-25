@@ -8,7 +8,7 @@ export default function Navbar() {
         <div className="flex flex-col items-center text-center">
           {/* Artist Name / Logo */}
           <Link href="/" className="font-serif text-4xl font-bold tracking-wider mb-6">
-            Your Name
+            No Taboo Paintings
           </Link>
 
           {/* Navigation Links */}

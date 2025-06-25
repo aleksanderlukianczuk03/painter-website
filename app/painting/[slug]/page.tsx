@@ -14,6 +14,7 @@ interface fullPainting {
   description: string;
   price: number;
   dimensions?: string;
+  medium?: string;
 }
 
 interface simplePaintingCard {
@@ -36,7 +37,8 @@ async function getData(slug: string) {
           galleryImages,
           description,
           price,
-          dimensions
+          dimensions,
+          medium
       } [0],
       "otherPaintings": *[_type == 'painting' && slug.current != '${slug}'] | order(_createdAt desc) [0...3] {
         title,
@@ -68,7 +70,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function PaintingPage({params}: {params: {slug: string}}) {
+export default async function PaintingPage({params}: {params: {slug:string}}) {
     const { currentPainting, otherPaintings }: { currentPainting: fullPainting, otherPaintings: simplePaintingCard[] } = await getData(params.slug);
   
     // Combine mainImage and galleryImages for the carousel
@@ -90,12 +92,17 @@ export default async function PaintingPage({params}: {params: {slug: string}}) {
                     <div className="mt-8 border-t pt-6">
                         <p className="text-lg text-foreground leading-relaxed">{currentPainting.description}</p>
                         
-                        {currentPainting.dimensions && (
-                            <p className="text-sm mt-4 text-muted-foreground">Dimensions: {currentPainting.dimensions}</p>
-                        )}
+                        <div className="text-sm mt-4 text-muted-foreground space-y-1">
+                            {currentPainting.dimensions && (
+                                <p>Dimensions: {currentPainting.dimensions}</p>
+                            )}
+                            {currentPainting.medium && (
+                                <p>Medium: {currentPainting.medium}</p>
+                            )}
+                        </div>
                     </div>
 
-                    <Button size="lg" className="w-full mt-10 text-lg py-7">
+                    <Button size="lg" className="w-full mt-10 text-lg py-7 font-semibold tracking-wider">
                         Purchase Now
                     </Button>
                     <p className="text-center text-xs text-muted-foreground mt-3">Secure checkout via Stripe</p>
