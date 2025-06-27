@@ -10,6 +10,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(request: NextRequest) {
   try {
     const { painting } = await request.json();
+    
+    console.log('Creating Stripe session for painting:', painting);
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -35,11 +37,13 @@ export async function POST(request: NextRequest) {
         { shipping_rate: process.env.SHR_INT! },
       ],
       success_url: `${process.env.DOMAIN}/thank-you?pid=${painting.id}`,
-      cancel_url: `${process.env.DOMAIN}/originals/${painting.id}`,
+      cancel_url: `${process.env.DOMAIN}/painting/${painting.id}`,
     });
 
+    console.log('Stripe session created with success URL:', session.success_url);
     return NextResponse.json({ url: session.url });
   } catch (error) {
+    console.error('Error creating checkout session:', error);
     return NextResponse.json({ error: 'Error creating checkout session.' }, { status: 500 });
   }
 }

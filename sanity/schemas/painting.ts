@@ -49,5 +49,17 @@ export default {
       type: 'string',
       title: 'Medium (Oil ‐ Linen)',
     },
+    {
+      name: 'sold',
+      type: 'boolean',
+      title: 'Sold',
+      initialValue: false,
+    },
+    {
+      name: 'soldAt',
+      type: 'datetime',
+      title: 'Sold Date',
+      hidden: ({ document }: any) => !document?.sold,
+    },
   ],
 };

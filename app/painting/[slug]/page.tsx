@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ImageCarousel from "@/app/components/ImageCarousel";
+import { redirect } from 'next/navigation';
 
 // Interfaces for type safety
 interface fullPainting {
@@ -15,6 +16,8 @@ interface fullPainting {
   price: number;
   dimensions?: string;
   medium?: string;
+  sold?: boolean;
+  soldAt?: string;
 }
 
 interface simplePaintingCard {
@@ -38,9 +41,11 @@ async function getData(slug: string) {
           description,
           price,
           dimensions,
-          medium
+          medium,
+          sold,
+          soldAt
       } [0],
-      "otherPaintings": *[_type == 'painting' && slug.current != '${slug}'] | order(_createdAt desc) [0...3] {
+      "otherPaintings": *[_type == 'painting' && slug.current != '${slug}' && sold != true] | order(_createdAt desc) [0...3] {
         title,
         "currentSlug": slug.current,
         mainImage,
@@ -70,9 +75,38 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
+// Add this function to handle the purchase
+async function handlePurchase(painting: fullPainting) {
+    'use server';
+    
+    console.log('Painting data being sent to Stripe:', {
+        id: painting.currentSlug,
+        title: painting.title,
+        price: painting.price
+    });
+    
+    const response = await fetch(`${process.env.DOMAIN}/api/stripe`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            painting: {
+                id: painting.currentSlug, // This should be the slug
+                title: painting.title,
+                price: painting.price,
+                currency: 'USD'
+            }
+        }),
+    });
+    
+    const { url } = await response.json();
+    return url;
+}
+
 export default async function PaintingPage({params}: {params: {slug:string}}) {
     const { currentPainting, otherPaintings }: { currentPainting: fullPainting, otherPaintings: simplePaintingCard[] } = await getData(params.slug);
-  
+    
     // Combine mainImage and galleryImages for the carousel
     const allImages = [currentPainting.mainImage, ...(currentPainting.galleryImages || [])].filter(Boolean);
 
@@ -102,9 +136,33 @@ export default async function PaintingPage({params}: {params: {slug:string}}) {
                         </div>
                     </div>
 
-                    <Button size="lg" className="w-full mt-10 text-lg py-7 font-semibold tracking-wider">
-                        Purchase Now
-                    </Button>
+                    {currentPainting.sold ? (
+                        <div className="mt-10">
+                            <Button size="lg" className="w-full text-lg py-7 font-semibold tracking-wider" disabled>
+                                Sold
+                            </Button>
+                            {currentPainting.soldAt && (
+                                <p className="text-center text-xs text-muted-foreground mt-3">
+                                    This artwork was sold on {new Date(currentPainting.soldAt).toLocaleDateString()}
+                                </p>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="mt-10">
+                            <form action={async () => {
+                                'use server';
+                                const url = await handlePurchase(currentPainting);
+                                redirect(url);
+                            }}>
+                                <Button
+                                    size="lg"
+                                    className="w-full text-lg py-7 font-semibold tracking-wider transition-transform duration-200 hover:scale-105 bg-black text-white hover:bg-black/90"
+                                    type="submit"
+                                > Purchase Now
+                                </Button>
+                            </form>
+                        </div>
+                    )}
                     <p className="text-center text-xs text-muted-foreground mt-3">Secure checkout via Stripe</p>
                 </div>
             </div>
