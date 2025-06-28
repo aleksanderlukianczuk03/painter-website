@@ -36,6 +36,7 @@ export default function ThankYouPage({
               Return Home
             </Link>
           </Button>
+        
         </div>
         
         <div className="mt-8 p-4 bg-muted rounded-lg">
