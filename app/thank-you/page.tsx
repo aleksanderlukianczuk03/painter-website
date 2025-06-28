@@ -41,10 +41,10 @@ export default function ThankYouPage({
         <div className="mt-8 p-4 bg-muted rounded-lg">
           <h3 className="font-semibold mb-2">What happens next?</h3>
           <ul className="text-sm text-muted-foreground text-left space-y-1">
-            <li>• You'll receive an email confirmation</li>
+            <li>• You&apos;ll receive an email confirmation</li>
             <li>• Your artwork will be carefully packaged</li>
             <li>• Shipping typically takes 5-10 business days</li>
-            <li>• You'll receive tracking information once shipped</li>
+            <li>• You&apos;ll receive tracking information once shipped</li>
           </ul>
         </div>
       </div>
