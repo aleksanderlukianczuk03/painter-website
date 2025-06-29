@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { urlFor } from '../lib/sanity';
-import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
+import { urlFor, client } from '../lib/sanity';
+import { ChevronLeft, ChevronRight, X, ZoomIn, Play } from 'lucide-react';
 
 interface ImageCarouselProps {
   images: any[];
@@ -19,14 +19,14 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   }
 
   const goToPrevious = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent modal from opening when clicking arrows
+    e.stopPropagation();
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
   };
 
   const goToNext = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent modal from opening when clicking arrows
+    e.stopPropagation();
     const isLastSlide = currentIndex === images.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
@@ -34,7 +34,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
   const openModal = () => {
     setIsModalOpen(true);
-    setIsZoomed(false); // Reset zoom state each time modal is opened
+    setIsZoomed(false);
   };
 
   const closeModal = () => {
@@ -42,8 +42,63 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   };
 
   const toggleZoom = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent click from closing the modal
+    e.stopPropagation();
     setIsZoomed(!isZoomed);
+  };
+
+  const isVideo = (item: any) => {
+    return item._type === 'file';
+  };
+
+  const getVideoUrl = (item: any) => {
+    if (item.asset && item.asset._ref) {
+      // Use Sanity's file URL structure
+      const projectId = client.config().projectId;
+      const dataset = client.config().dataset;
+      const ref = item.asset._ref;
+      
+      // Extract file ID and extension from reference
+      const [, id, extension] = ref.match(/^file-([a-f0-9]+)-(\w+)$/) || [];
+      
+      if (id && extension) {
+        return `https://cdn.sanity.io/files/${projectId}/${dataset}/${id}.${extension}`;
+      }
+    }
+    return '';
+  };
+
+  const renderMedia = (item: any, isModal = false) => {
+    if (isVideo(item)) {
+      const videoUrl = getVideoUrl(item);
+      console.log('Video URL:', videoUrl); // Debug log
+      
+      return (
+        <video
+          controls
+          preload="metadata"
+          className={`w-full h-full object-contain ${isModal && isZoomed ? 'scale-125' : 'scale-100'} transition-transform duration-300 ease-in-out`}
+          onClick={(e) => e.stopPropagation()}
+          onError={(e) => console.error('Video error:', e)}
+          onLoadStart={() => console.log('Video load started')}
+          onCanPlay={() => console.log('Video can play')}
+        >
+          <source src={videoUrl} type="video/mp4" />
+          <source src={videoUrl} type="video/webm" />
+          <source src={videoUrl} type="video/ogg" />
+          Your browser does not support the video tag.
+        </video>
+      );
+    } else {
+      return (
+        <Image
+          src={urlFor(item).url()}
+          alt={`Painting view ${currentIndex + 1}`}
+          fill
+          priority={currentIndex === 0}
+          className={`object-cover transition-opacity duration-500 ease-in-out ${isModal ? 'object-contain' : ''} ${isModal && isZoomed ? 'scale-125' : 'scale-100'}`}
+        />
+      );
+    }
   };
 
   return (
@@ -54,15 +109,13 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
           className="relative w-full aspect-square overflow-hidden rounded-lg cursor-zoom-in"
           onClick={openModal}
         >
-          <Image
-            src={urlFor(images[currentIndex]).url()}
-            alt={`Painting view ${currentIndex + 1}`}
-            fill
-            priority
-            className="object-cover transition-opacity duration-500 ease-in-out"
-          />
+          {renderMedia(images[currentIndex])}
           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-            <ZoomIn className="text-white h-16 w-16 opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
+            {isVideo(images[currentIndex]) ? (
+              <Play className="text-white h-16 w-16 opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
+            ) : (
+              <ZoomIn className="text-white h-16 w-16 opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
+            )}
           </div>
         </div>
 
@@ -103,14 +156,9 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
 
           <div 
             className="relative w-[90vw] h-[90vh] cursor-zoom-in"
-            onClick={toggleZoom}
+            onClick={isVideo(images[currentIndex]) ? undefined : toggleZoom}
           >
-            <Image
-              src={urlFor(images[currentIndex]).url()}
-              alt={`Painting view ${currentIndex + 1} zoomed`}
-              fill
-              className={`object-contain transition-transform duration-300 ease-in-out ${isZoomed ? 'scale-125' : 'scale-100'}`}
-            />
+            {renderMedia(images[currentIndex], true)}
           </div>
         </div>
       )}

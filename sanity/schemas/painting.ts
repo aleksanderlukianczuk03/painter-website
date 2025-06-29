@@ -22,11 +22,21 @@ export default {
       title: "Main Image",
     },
     {
-      name: "galleryImages",
+      name: "galleryMedia",
       type: "array",
-      title: "Gallery Images",
+      title: "Gallery Media (Images & Videos)",
       of: [
-        { type: "image" },
+        { 
+          type: "image",
+          title: "Image"
+        },
+        { 
+          type: "file",
+          title: "Video",
+          options: {
+            accept: "video/*"
+          }
+        },
       ],
     },
     {
@@ -39,7 +49,7 @@ export default {
       type: "number",
       title: "Price (USD)",
     },
-     {
+    {
       name: 'dimensions',
       type: 'string',
       title: 'Dimensions (e.g., 12" x 16")',

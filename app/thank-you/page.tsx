@@ -10,43 +10,76 @@ export default function ThankYouPage({
   const paintingId = searchParams.pid;
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="max-w-md w-full text-center">
-        <div className="mb-8">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h1 className="text-3xl font-serif font-bold mb-4">Thank You!</h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            Your purchase has been completed successfully. You will receive a confirmation email shortly.
-          </p>
-          {paintingId && (
-            <p className="text-sm text-muted-foreground mb-8">
-              Order Reference: {paintingId}
+    <div className="premium-container py-20">
+      <div className="max-w-2xl mx-auto text-center">
+        {/* Header Section */}
+        <div className="mb-16 space-y-8">
+          <div className="flex justify-center">
+            <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-10 h-10 text-green-600" />
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <h1 className="text-4xl lg:text-5xl font-serif font-light tracking-tight">
+              Purchase Complete
+            </h1>
+            <div className="elegant-divider"></div>
+            <p className="text-lg font-light text-foreground/80 leading-relaxed max-w-lg mx-auto">
+              Thank you for acquiring an original piece. Your artwork will be carefully prepared and shipped to you.
             </p>
+          </div>
+          
+          {paintingId && (
+            <div className="scarcity-indicator inline-flex">
+              Order Reference: {paintingId}
+            </div>
           )}
         </div>
-        
+
+        {/* What's Next Section */}
+        <div className="mb-12 p-8 bg-muted/30 space-y-6">
+          <h3 className="text-xl font-serif font-light tracking-tight">What Happens Next</h3>
+          <div className="elegant-divider"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-foreground/70">
+            <div className="space-y-2">
+              <div className="font-medium text-foreground">Email Confirmation</div>
+              <div>You'll receive detailed order confirmation within minutes</div>
+            </div>
+            <div className="space-y-2">
+              <div className="font-medium text-foreground">Professional Packaging</div>
+              <div>Museum-quality materials ensure safe transit</div>
+            </div>
+            <div className="space-y-2">
+              <div className="font-medium text-foreground">Shipping Timeline</div>
+              <div>5-10 business days for domestic, 10-21 for international</div>
+            </div>
+            <div className="space-y-2">
+              <div className="font-medium text-foreground">Tracking Information</div>
+              <div>Full tracking details sent once your artwork ships</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
         <div className="space-y-4">
-          <Button asChild className="w-full">
+          <Button asChild className="btn-premium w-full md:w-auto px-8">
             <Link href="/originals">
-              Browse More Paintings
+              View More Originals
             </Link>
           </Button>
-          <Button variant="outline" asChild className="w-full">
-            <Link href="/">
+          <div className="flex justify-center">
+            <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 tracking-[0.1em] uppercase">
               Return Home
             </Link>
-          </Button>
-        
+          </div>
         </div>
-        
-        <div className="mt-8 p-4 bg-muted rounded-lg">
-          <h3 className="font-semibold mb-2">What happens next?</h3>
-          <ul className="text-sm text-muted-foreground text-left space-y-1">
-            <li>• You&apos;ll receive an email confirmation</li>
-            <li>• Your artwork will be carefully packaged</li>
-            <li>• Shipping typically takes 5-10 business days</li>
-            <li>• You&apos;ll receive tracking information once shipped</li>
-          </ul>
+
+        {/* Certificate Note */}
+        <div className="mt-16 pt-8 border-t border-border/30">
+          <p className="text-xs text-muted-foreground tracking-[0.1em] uppercase font-light">
+            Certificate of Authenticity Included • Fully Insured Shipping
+          </p>
         </div>
       </div>
     </div>

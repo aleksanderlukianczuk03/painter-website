@@ -11,7 +11,7 @@ interface fullPainting {
   title: string;
   currentSlug: string;
   mainImage: any;
-  galleryImages: any[];
+  galleryMedia: any[];
   description: string;
   price: number;
   dimensions?: string;
@@ -20,45 +20,35 @@ interface fullPainting {
   soldAt?: string;
 }
 
-interface simplePaintingCard {
-  title: string;
-  currentSlug: string;
-  mainImage: any;
-  price: number;
-}
-
 export const revalidate = 30; // Revalidate at most every 30 seconds
 
-// Fetch data for the specific painting and other paintings
+// Fetch data for the specific painting
 async function getData(slug: string) {
     const query = `
-    {
-      "currentPainting": *[_type == 'painting' && slug.current == '${slug}'] {
-        "currentSlug": slug.current,
-          title,
-          mainImage,
-          galleryImages,
-          description,
-          price,
-          dimensions,
-          medium,
-          sold,
-          soldAt
-      } [0],
-      "otherPaintings": *[_type == 'painting' && slug.current != '${slug}' && sold != true] | order(_createdAt desc) [0...3] {
+    *[_type == 'painting' && slug.current == '${slug}'] {
+      "currentSlug": slug.current,
         title,
-        "currentSlug": slug.current,
         mainImage,
-        price
-      }
-    }`;
+        galleryMedia,
+        description,
+        price,
+        dimensions,
+        medium,
+        sold,
+        soldAt
+    } [0]`;
     const data = await client.fetch(query);
     return data;
 }
 
 // Generate dynamic metadata for SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const { currentPainting }: { currentPainting: fullPainting } = await getData(params.slug);
+    const currentPainting: fullPainting = await getData(params.slug);
+    if (!currentPainting) {
+        return {
+            title: "Painting not found",
+        };
+    }
     return {
         title: currentPainting.title,
         description: currentPainting.description,
@@ -92,7 +82,7 @@ async function handlePurchase(painting: fullPainting) {
         },
         body: JSON.stringify({
             painting: {
-                id: painting.currentSlug, // This should be the slug
+                id: painting.currentSlug,
                 title: painting.title,
                 price: painting.price,
                 currency: 'USD'
@@ -105,93 +95,127 @@ async function handlePurchase(painting: fullPainting) {
 }
 
 export default async function PaintingPage({params}: {params: {slug:string}}) {
-    const { currentPainting, otherPaintings }: { currentPainting: fullPainting, otherPaintings: simplePaintingCard[] } = await getData(params.slug);
+    const currentPainting: fullPainting = await getData(params.slug);
     
-    // Combine mainImage and galleryImages for the carousel
-    const allImages = [currentPainting.mainImage, ...(currentPainting.galleryImages || [])].filter(Boolean);
+    // Combine mainImage and galleryMedia for the carousel
+    const allImages = [currentPainting.mainImage, ...(currentPainting.galleryMedia || [])].filter(Boolean);
 
     return (
-        <div className="mt-8 mb-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+        <div className="premium-container py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
                 {/* Image Carousel Section */}
-                <div className="md:sticky top-24 h-fit">
-                    <ImageCarousel images={allImages} />
+                <div className="lg:sticky top-24 h-fit">
+                    <div className="space-y-6">
+                        <ImageCarousel images={allImages} />
+                        {allImages.length > 1 && (
+                            <p className="text-center text-xs text-muted-foreground tracking-[0.1em] uppercase">
+                                {allImages.length} Views Available
+                            </p>
+                        )}
+                    </div>
                 </div>
 
                 {/* Painting Details Section */}
-                <div className="flex flex-col pt-4">
-                    <h1 className="font-serif text-4xl lg:text-5xl font-bold">{currentPainting.title}</h1>
-                    <p className="text-2xl mt-4 text-muted-foreground">${currentPainting.price.toLocaleString()}</p>
-                    
-                    <div className="mt-8 border-t pt-6">
-                        <p className="text-lg text-foreground leading-relaxed">{currentPainting.description}</p>
+                <div className="flex flex-col space-y-12">
+                    {/* Header */}
+                    <div className="space-y-6">
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-4">
+                                {currentPainting.sold ? (
+                                    <div className="scarcity-indicator bg-muted text-muted-foreground border-muted-foreground/30">
+                                        Sold
+                                    </div>
+                                ) : (
+                                    <div className="scarcity-indicator">
+                                        Available Now
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-serif font-light tracking-tight leading-tight">
+                                {currentPainting.title}
+                            </h1>
+                        </div>
                         
-                        <div className="text-sm mt-4 text-muted-foreground space-y-1">
+                        <div className="space-y-2">
+                            <p className="text-3xl lg:text-4xl font-light tracking-wide">
+                                ${currentPainting.price.toLocaleString()}
+                            </p>
+                            <p className="text-sm text-muted-foreground tracking-[0.1em] uppercase font-light">
+                                Original Artwork • One of One
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="elegant-divider"></div>
+                    
+                    {/* Description */}
+                    <div className="space-y-8">
+                        <div className="prose prose-lg max-w-none">
+                            <p className="text-lg font-light leading-relaxed text-foreground/90">
+                                {currentPainting.description}
+                            </p>
+                        </div>
+                        
+                        {/* Specifications */}
+                        <div className="grid grid-cols-2 gap-6 text-sm">
                             {currentPainting.dimensions && (
-                                <p>Dimensions: {currentPainting.dimensions}</p>
+                                <div className="space-y-1">
+                                    <p className="text-muted-foreground tracking-[0.1em] uppercase font-light">Dimensions</p>
+                                    <p className="font-light">{currentPainting.dimensions}</p>
+                                </div>
                             )}
                             {currentPainting.medium && (
-                                <p>Medium: {currentPainting.medium}</p>
+                                <div className="space-y-1">
+                                    <p className="text-muted-foreground tracking-[0.1em] uppercase font-light">Medium</p>
+                                    <p className="font-light">{currentPainting.medium}</p>
+                                </div>
                             )}
                         </div>
                     </div>
 
-                    {currentPainting.sold ? (
-                        <div className="mt-10">
-                            <Button size="lg" className="w-full text-lg py-7 font-semibold tracking-wider" disabled>
-                                Sold
-                            </Button>
-                            {currentPainting.soldAt && (
-                                <p className="text-center text-xs text-muted-foreground mt-3">
-                                    This artwork was sold on {new Date(currentPainting.soldAt).toLocaleDateString()}
-                                </p>
-                            )}
-                        </div>
-                    ) : (
-                        <div className="mt-10">
-                            <form action={async () => {
-                                'use server';
-                                const url = await handlePurchase(currentPainting);
-                                redirect(url);
-                            }}>
-                                <Button
-                                    size="lg"
-                                    className="w-full text-lg py-7 font-semibold tracking-wider transition-transform duration-200 hover:scale-105 bg-black text-white hover:bg-black/90"
-                                    type="submit"
-                                > Purchase Now
+                    {/* Purchase Section */}
+                    <div className="space-y-6 pt-8">
+                        {currentPainting.sold ? (
+                            <div className="space-y-4">
+                                <Button size="lg" className="w-full btn-premium" disabled>
+                                    Sold to Private Collector
                                 </Button>
-                            </form>
-                        </div>
-                    )}
-                    <p className="text-center text-xs text-muted-foreground mt-3">Secure checkout via Stripe</p>
-                </div>
-            </div>
-
-            {/* Other Paintings Section */}
-            <div className="mt-24 border-t pt-16">
-                <h2 className="text-3xl font-serif text-center mb-12">Other Works</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
-                    {otherPaintings.map((painting, idx) => ( 
-                        <div key={idx} className="group">
-                            <Link href={`/painting/${painting.currentSlug}`}>
-                                <div className="overflow-hidden rounded-lg">
-                                    <Image  
-                                        src={urlFor(painting.mainImage).url()} 
-                                        alt={painting.title} 
-                                        width={500} 
-                                        height={500} 
-                                        className="rounded-lg h-auto w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out" 
-                                    />
-                                </div>
-                            </Link>
-                            <div className="mt-4 text-center">
-                                <Link href={`/painting/${painting.currentSlug}`}>
-                                    <h3 className="text-xl font-serif">{painting.title}</h3>
-                                </Link>
-                                <p className="text-md mt-1 text-muted-foreground">${painting.price.toLocaleString()}</p>
+                                {currentPainting.soldAt && (
+                                    <p className="text-center text-xs text-muted-foreground tracking-[0.1em] uppercase">
+                                        Acquired {new Date(currentPainting.soldAt).toLocaleDateString('en-US', { 
+                                            month: 'long', 
+                                            year: 'numeric' 
+                                        })}
+                                    </p>
+                                )}
                             </div>
-                        </div>
-                    ))}
+                        ) : (
+                            <div className="space-y-4">
+                                <form action={async () => {
+                                    'use server';
+                                    const url = await handlePurchase(currentPainting);
+                                    redirect(url);
+                                }}>
+                                    <Button
+                                        size="lg"
+                                        className="w-full btn-premium h-14 text-base"
+                                        type="submit"
+                                    > 
+                                        Acquire Original
+                                    </Button>
+                                </form>
+                                <div className="text-center space-y-2">
+                                    <p className="text-xs text-muted-foreground tracking-[0.1em] uppercase">
+                                        Secure Checkout • Worldwide Shipping
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">
+                                        Certificate of Authenticity Included
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
