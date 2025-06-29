@@ -12,29 +12,49 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 async function markPaintingAsSold(paintingSlug: string) {
   try {
-    console.log(`Attempting to mark painting ${paintingSlug} as sold`);
+    console.log(`🎨 Attempting to mark painting ${paintingSlug} as sold`);
+    console.log(`🔑 Sanity token present: ${!!process.env.SANITY_API_TOKEN}`);
     
     // First, let's try to find the painting by slug
     const slugQuery = `*[_type == 'painting' && slug.current == $slug][0]`;
+    console.log(`🔍 Searching with query: ${slugQuery}`);
+    console.log(`🔍 Search parameter: ${paintingSlug}`);
+    
     let painting = await writeClient.fetch(slugQuery, { slug: paintingSlug });
     
     // If not found by slug, try by _id (in case the paintingSlug is actually an ID)
     if (!painting) {
-      console.log('Not found by slug, trying by _id...');
+      console.log('❌ Not found by slug, trying by _id...');
       const idQuery = `*[_type == 'painting' && _id == $id][0]`;
       painting = await writeClient.fetch(idQuery, { id: paintingSlug });
     }
     
     // If still not found, let's see all paintings to debug
     if (!painting) {
-      console.log('Painting not found. Let me check what paintings exist...');
-      const allPaintings = await writeClient.fetch(`*[_type == 'painting']{_id, "slug": slug.current, title}`);
-      console.log('All paintings:', JSON.stringify(allPaintings, null, 2));
-      console.log('Looking for:', paintingSlug);
-      return false;
+      console.log('❌ Painting not found. Checking all paintings...');
+      const allPaintings = await writeClient.fetch(`*[_type == 'painting']{_id, "slug": slug.current, title, sold}`);
+      console.log('🎨 All paintings:', JSON.stringify(allPaintings, null, 2));
+      console.log('🔍 Looking for slug:', paintingSlug);
+      
+      // Try case-insensitive search as backup
+      const caseInsensitiveQuery = `*[_type == 'painting' && lower(slug.current) == lower($slug)][0]`;
+      painting = await writeClient.fetch(caseInsensitiveQuery, { slug: paintingSlug });
+      
+      if (!painting) {
+        console.log('❌ Still not found with case-insensitive search');
+        return false;
+      } else {
+        console.log('✅ Found with case-insensitive search');
+      }
     }
     
-    console.log(`Found painting:`, JSON.stringify(painting, null, 2));
+    console.log(`✅ Found painting:`, JSON.stringify(painting, null, 2));
+    
+    // Double-check we have write permissions
+    if (!process.env.SANITY_API_TOKEN) {
+      console.error('❌ No SANITY_API_TOKEN found in environment');
+      return false;
+    }
     
     const result = await writeClient
       .patch(painting._id)
@@ -44,17 +64,23 @@ async function markPaintingAsSold(paintingSlug: string) {
       })
       .commit();
     
-    console.log(`Painting ${paintingSlug} marked as sold successfully:`, JSON.stringify(result, null, 2));
+    console.log(`✅ Update result:`, JSON.stringify(result, null, 2));
     
-    // Revalidate using the correct slug
+    // Revalidate paths
     const paintingSlugForRevalidation = painting.slug?.current || paintingSlug;
     revalidatePath(`/painting/${paintingSlugForRevalidation}`);
     revalidatePath('/');
     revalidatePath('/originals');
     
+    console.log(`🔄 Revalidated paths for slug: ${paintingSlugForRevalidation}`);
+    
     return true;
   } catch (error) {
-    console.error('Error marking painting as sold:', error);
+    console.error('❌ Error marking painting as sold:', error);
+    if (error instanceof Error) {
+      console.error('❌ Error message:', error.message);
+      console.error('❌ Error stack:', error.stack);
+    }
     return false;
   }
 }

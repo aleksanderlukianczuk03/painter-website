@@ -16,10 +16,15 @@ export const writeClient = createClient({
   projectId: "wpi7zh8u",
   useCdn: false,
   token: process.env.SANITY_API_TOKEN,
+  ignoreBrowserTokenWarning: true, // Add this for server-side usage
 });
 
-// Add this for debugging
-console.log('Sanity token configured:', !!process.env.SANITY_API_TOKEN);
+// Add more detailed logging
+console.log('Sanity Configuration:');
+console.log('- Project ID:', 'wpi7zh8u');
+console.log('- Dataset:', 'production');
+console.log('- Token configured:', !!process.env.SANITY_API_TOKEN);
+console.log('- Token length:', process.env.SANITY_API_TOKEN?.length || 0);
 
 const builder = imageUrlBuilder(client);
 
