@@ -44,7 +44,7 @@ export default function ThankYouPage({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-foreground/70">
             <div className="space-y-2">
               <div className="font-medium text-foreground">Email Confirmation</div>
-              <div>You'll receive detailed order confirmation within minutes</div>
+              <div>You&apos;ll receive detailed order confirmation within minutes</div>
             </div>
             <div className="space-y-2">
               <div className="font-medium text-foreground">Professional Packaging</div>
