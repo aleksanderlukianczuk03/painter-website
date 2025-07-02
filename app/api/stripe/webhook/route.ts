@@ -4,6 +4,9 @@ import { headers } from 'next/headers';
 import { writeClient } from '@/app/lib/sanity';
 import { revalidatePath } from 'next/cache';
 
+// Add this line to prevent static generation issues
+export const dynamic = 'force-dynamic';
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;

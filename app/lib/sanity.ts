@@ -20,11 +20,7 @@ export const writeClient = createClient({
 });
 
 // Add more detailed logging
-console.log('Sanity Configuration:');
-console.log('- Project ID:', 'wpi7zh8u');
-console.log('- Dataset:', 'production');
-console.log('- Token configured:', !!process.env.SANITY_API_TOKEN);
-console.log('- Token length:', process.env.SANITY_API_TOKEN?.length || 0);
+
 
 const builder = imageUrlBuilder(client);
 
