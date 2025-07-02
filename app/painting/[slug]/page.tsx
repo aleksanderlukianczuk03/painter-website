@@ -68,6 +68,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function PaintingPage({params}: {params: {slug:string}}) {
     const currentPainting: fullPainting = await getData(params.slug);
     
+    // Extract only serializable data for the server action
+    const paintingData = {
+        currentSlug: currentPainting.currentSlug,
+        title: currentPainting.title,
+        price: currentPainting.price
+    };
+    
     // Combine mainImage and galleryMedia for the carousel
     const allImages = [currentPainting.mainImage, ...(currentPainting.galleryMedia || [])].filter(Boolean);
 
@@ -163,7 +170,7 @@ export default async function PaintingPage({params}: {params: {slug:string}}) {
                             </div>
                         ) : (
                             <div className="space-y-4">
-                                <form action={handlePurchase.bind(null, currentPainting)}>
+                                <form action={handlePurchase.bind(null, paintingData)}>
                                     <Button
                                         size="lg"
                                         className="w-full btn-premium h-14 text-base"
