@@ -32,7 +32,7 @@ export default function AuthorPage() {
                   className="object-cover"
                 />
               </div>
-            </div>
+            </div> 
           </div>
 
           {/* Artist Bio */}
