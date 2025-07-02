@@ -26,7 +26,7 @@ export default function AuthorPage() {
             <div className="relative w-80 h-80 premium-shadow-elevated bg-background p-6">
               <div className="relative w-full h-full overflow-hidden">
                 <Image
-                  src="/me.png" 
+                  src="/me.jpg" 
                   alt="Photo of the artist, Alex Luk"
                   fill
                   className="object-cover"
@@ -39,27 +39,36 @@ export default function AuthorPage() {
           <div className="text-center lg:text-left space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl lg:text-5xl font-serif font-light tracking-tight">
-                Alex Luk
+                Aleksander Łukiańczuk
               </h2>
               <p className="text-sm text-muted-foreground tracking-[0.1em] uppercase font-light">
-                Contemporary Realist Painter
+                No Taboo Paintings
               </p>
             </div>
             
             <div className="elegant-divider lg:mx-0"></div>
             
             <div className="space-y-6 text-foreground/80">
-              <p className="text-lg font-light leading-relaxed">
-                I find inspiration in the quiet moments of everyday life—the way light falls on a vase of flowers, the rich textures of velvet, and the timeless beauty of the natural world. My work is a celebration of these simple, profound moments, captured with oil on linen.
+              <p className="text-base font-light leading-relaxed">
+                Aleksander Łukiańczuk is a 21-year-old contemporary painter specializing in floral compositions that embrace a painterly style close to realism. His work captures the delicate balance between elegance and intimacy, offering collectors unique pieces that enhance sophisticated interiors.
               </p>
               <p className="text-base font-light leading-relaxed">
-                With a background in classical painting techniques, I aim to create art that feels both timeless and contemporary, bringing a sense of peace and elegance to the spaces it inhabits. Thank you for joining me on this journey.
+                He honed his artistic skills under the guidance of the respected American painter Elizabeth Robbins.
+              </p>
+              <p className="text-base font-light leading-relaxed">
+                Beyond painting, Aleksander is known internationally for his popular art channels, No Taboo Paintings, which have captivated over 200,000 fans on YouTube and Instagram and garnered more than 100 million views with emotionally charged explorations of provocative art.
+              </p>
+              <p className="text-base font-light leading-relaxed">
+                Aleksander's creativity extends to literature—he has published two poetry collections. His multifaceted background also includes a degree in Finance & Accounting from the prestigious SGH Warsaw School of Economics and entrepreneurial experience founding an AI-driven health startup.
+              </p>
+              <p className="text-base font-light leading-relaxed">
+                Based in Warsaw, Aleksander invites collectors worldwide to experience the exclusivity and quiet elegance of his paintings.
               </p>
             </div>
             
             <div className="pt-4">
               <div className="scarcity-indicator inline-flex">
-                Based in Studio • Creating Since 2020
+                Based in Warsaw • 200K+ Followers • Contemporary Painter
               </div>
             </div>
           </div>
