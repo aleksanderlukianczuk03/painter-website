@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ImageCarousel from "@/app/components/ImageCarousel";
-import { redirect } from 'next/navigation';
+import { handlePurchase } from "@/app/actions/purchase";
 
 // Interfaces for type safety
 interface fullPainting {
@@ -63,35 +63,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             ],
         },
     };
-}
-
-// Add this function to handle the purchase
-async function handlePurchase(painting: fullPainting) {
-    'use server';
-    
-    console.log('Painting data being sent to Stripe:', {
-        id: painting.currentSlug,
-        title: painting.title,
-        price: painting.price
-    });
-    
-    const response = await fetch(`${process.env.DOMAIN}/api/stripe`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            painting: {
-                id: painting.currentSlug,
-                title: painting.title,
-                price: painting.price,
-                currency: 'USD'
-            }
-        }),
-    });
-    
-    const { url } = await response.json();
-    return url;
 }
 
 export default async function PaintingPage({params}: {params: {slug:string}}) {
@@ -192,11 +163,7 @@ export default async function PaintingPage({params}: {params: {slug:string}}) {
                             </div>
                         ) : (
                             <div className="space-y-4">
-                                <form action={async () => {
-                                    'use server';
-                                    const url = await handlePurchase(currentPainting);
-                                    redirect(url);
-                                }}>
+                                <form action={handlePurchase.bind(null, currentPainting)}>
                                     <Button
                                         size="lg"
                                         className="w-full btn-premium h-14 text-base"
