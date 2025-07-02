@@ -27,7 +27,7 @@ export default function Home() {
               Deepest Love
             </h1>
             <p className="text-muted-foreground tracking-[0.1em] uppercase text-sm font-light">
-              Oil on Linen • 16" × 20"
+              Oil on Linen • 16&rdquo; × 20&rdquo;
             </p>
             <div className="scarcity-indicator mx-auto">
               Original • One of One
@@ -39,7 +39,7 @@ export default function Home() {
         <div className="w-full lg:w-1/2 text-center lg:text-left space-y-12">
           <blockquote className="space-y-6">
             <p className="text-3xl lg:text-4xl font-serif font-light italic text-foreground/90 leading-relaxed">
-              "Art must be an expression of love or it is nothing."
+              &ldquo;Art must be an expression of love or it is nothing.&rdquo;
             </p>
             <cite className="block not-italic text-sm tracking-[0.15em] uppercase text-muted-foreground font-light">
               — Marc Chagall

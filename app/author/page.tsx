@@ -59,7 +59,7 @@ export default function AuthorPage() {
                 Beyond painting, Aleksander is known internationally for his popular art channels, No Taboo Paintings, which have captivated over 200,000 fans on YouTube and Instagram and garnered more than 100 million views with emotionally charged explorations of provocative art.
               </p>
               <p className="text-base font-light leading-relaxed">
-                Aleksander's creativity extends to literature—he has published two poetry collections. His multifaceted background also includes a degree in Finance & Accounting from the prestigious SGH Warsaw School of Economics and entrepreneurial experience founding an AI-driven health startup.
+                Aleksander&apos;s creativity extends to literature—he has published two poetry collections. His multifaceted background also includes a degree in Finance & Accounting from the prestigious SGH Warsaw School of Economics and entrepreneurial experience founding an AI-driven health startup.
               </p>
               <p className="text-base font-light leading-relaxed">
                 Based in Warsaw, Aleksander invites collectors worldwide to experience the exclusivity and quiet elegance of his paintings.

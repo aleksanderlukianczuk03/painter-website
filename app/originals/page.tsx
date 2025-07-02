@@ -67,7 +67,7 @@ export default async function OriginalsPage() {
         <div className="text-center lg:text-right">
           <blockquote className="space-y-4">
             <p className="text-xl lg:text-2xl xl:text-3xl font-serif font-light italic text-foreground/85 leading-relaxed">
-              "There are always flowers for those who want to see them."
+              &ldquo;There are always flowers for those who want to see them.&rdquo;
             </p>
             <cite className="block not-italic text-sm tracking-[0.15em] uppercase text-muted-foreground font-light">
               — Henri Matisse

@@ -77,7 +77,7 @@ export default function TermsPage() {
             <div className="elegant-divider mx-0"></div>
             <div className="space-y-4 text-foreground/80 font-light leading-relaxed">
               <p>
-                Every original painting includes a signed Certificate of Authenticity detailing the artwork's provenance, materials, and creation date.
+                Every original painting includes a signed Certificate of Authenticity detailing the artwork&apos;s provenance, materials, and creation date.
               </p>
               <p>
                 Paintings are created using professional-grade oil paints on premium linen canvas, ensuring longevity when properly cared for.
