@@ -3,8 +3,6 @@ import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
- 
-
 export async function POST(request: NextRequest) {
   try {
     const { painting } = await request.json();
@@ -17,7 +15,7 @@ export async function POST(request: NextRequest) {
       line_items: [
         {
           price_data: {
-            currency: painting.currency || 'USD',
+            currency: 'EUR', // Changed from USD to EUR
             unit_amount: painting.price * 100,
             product_data: {
               name: painting.title,
@@ -27,13 +25,26 @@ export async function POST(request: NextRequest) {
         },
       ],
       shipping_address_collection: {
-        allowed_countries: ['PL', 'AT', 'DE', 'FR', 'GB', 'US', 'CA', 'AU'],
+        allowed_countries: [
+          'PL','AT','BE','BG','HR','CY','CZ','DE','DK','EE','ES','FI','FR','GR','HU',
+          'IE','IT','LT','LU','LV','MT','NL','PT','RO','SE','SI','SK','IS','NO','CH','LI',
+          'GB','US','CA','AU','NZ','JP','SG','HK','KR','AE'
+        ],
       },
       shipping_options: [
         { shipping_rate: process.env.SHR_PL! },
         { shipping_rate: process.env.SHR_EU! },
         { shipping_rate: process.env.SHR_INT! },
       ],
+      // Add terms acceptance checkbox using custom_text
+      consent_collection: { 
+        terms_of_service: 'required' 
+      },
+      custom_text: {
+        terms_of_service_acceptance: {
+          message: `By completing this purchase, you agree to our [Terms & Conditions](${process.env.DOMAIN}/terms).`
+        }
+      },
       success_url: `${process.env.DOMAIN}/thank-you?pid=${painting.id}`,
       cancel_url: `${process.env.DOMAIN}/painting/${painting.id}`,
     });

@@ -13,7 +13,7 @@ export default function Home() {
           <div className="hero-image premium-shadow-elevated bg-background p-8 inline-block">
             <div className="relative">
               <Image
-                src="/IMG_20250629_122835.jpg"
+                src="/IMG_20250629_122835 - Copy.jpg"
                 alt="Deepest Love - Original Oil Painting"
                 width={400}
                 height={500}

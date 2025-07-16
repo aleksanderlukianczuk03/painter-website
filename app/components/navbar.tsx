@@ -13,7 +13,7 @@ export default function Navbar() {
           {/* Artist Name / Logo */}
           <Link href="/" className="group">
             <h1 className="font-serif text-4xl md:text-5xl font-light tracking-tight premium-hover">
-              No Taboo Paintings
+              Aleksander Lukianczuk
             </h1>
             <div className="elegant-divider opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-2"></div>
           </Link>

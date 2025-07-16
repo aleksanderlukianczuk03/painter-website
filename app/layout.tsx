@@ -10,18 +10,18 @@ const lora = Lora({ subsets: ["latin"], weight: "400", variable: '--font-lora' }
 // Updated Metadata for your Art Portfolio
 export const metadata: Metadata = {
   title: {
-    default: "Your Name - Artist", // CHANGE "Your Name"
-    template: "%s | Your Name - Artist", // CHANGE "Your Name"
+    default: "No Taboo Paintings", // CHANGE "Your Name"
+    template: "%s | No Taboo Paintings", // CHANGE "Your Name"
   },
-  description: "Original oil paintings by [Your Name]. Still life and floral works.", // CHANGE "Your Name"
+  description: "Original oil paintings by No Taboo Paintings. Still life and floral works.", // CHANGE "Your Name"
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://your-website.com", // CHANGE to your domain
-    title: "Your Name - Artist", // CHANGE "Your Name"
-    description: "Original oil paintings by [Your Name]. Still life and floral works.", // CHANGE "Your Name"
+    title: "No Taboo Paintings", // CHANGE "Your Name"
+    description: "Original oil paintings by No Taboo Paintings. Still life and floral works.", // CHANGE "Your Name"
   },
-  keywords: ["Fine Art", "Oil Painting", "Still Life", "Floral Art", "Original Artwork", "Your Name"], // CHANGE "Your Name"
+  keywords: ["Rose painting", "Oil painting", "Still life", "Floral art", "Original art", "No Taboo Paintings"], // CHANGE "Your Name"
 };
 
 export default function RootLayout({

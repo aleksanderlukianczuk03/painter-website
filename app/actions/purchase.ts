@@ -25,7 +25,7 @@ export async function handlePurchase(painting: PaintingData) {
                 id: painting.currentSlug,
                 title: painting.title,
                 price: painting.price,
-                currency: 'USD'
+                currency: 'EUR' // Changed from USD to EUR
             }
         }),
     });

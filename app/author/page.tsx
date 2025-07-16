@@ -53,8 +53,7 @@ export default function AuthorPage() {
                 Aleksander Łukiańczuk is a 21-year-old contemporary painter specializing in floral compositions that embrace a painterly style close to realism. His work captures the delicate balance between elegance and intimacy, offering collectors unique pieces that enhance sophisticated interiors.
               </p>
               <p className="text-base font-light leading-relaxed">
-                He honed his artistic skills under the guidance of the respected American painter Elizabeth Robbins.
-              </p>
+He honed his artistic skills through teachings by renowned American painter Elizabeth Robbins.              </p>
               <p className="text-base font-light leading-relaxed">
                 Beyond painting, Aleksander is known internationally for his popular art channels, No Taboo Paintings, which have captivated over 200,000 fans on YouTube and Instagram and garnered more than 100 million views with emotionally charged explorations of provocative art.
               </p>
