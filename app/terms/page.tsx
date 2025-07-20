@@ -66,10 +66,13 @@ export default function TermsPage() {
             <div className="elegant-divider mx-0"></div>
             <div className="space-y-4 text-foreground/80 font-light leading-relaxed">
               <p>
-                <strong>Real-time stock:</strong> Although inventory status is updated promptly, a painting may occasionally sell off-line before the website reflects the change. If we receive payment for an Artwork that has already been sold, we will notify you immediately and offer (a) a full refund or (b) the option to select another piece.
+                <strong>Real‑time stock:</strong> Although inventory status is updated promptly, a painting may occasionally sell off‑line before the website reflects the change. If we receive payment for an Artwork that has already been sold, we will notify you immediately and offer (a) a full refund or (b) the option to select another piece.
               </p>
               <p>
                 <strong>Where we ship:</strong> At checkout you must provide a valid shipping address in any of the following countries: Poland, all other EU Member States, Iceland, Norway, Liechtenstein, Switzerland, United Kingdom, United States, Canada, Australia, New Zealand, Japan, Singapore, Hong Kong SAR, South Korea, and United Arab Emirates.
+              </p>
+              <p>
+                We do not ship to countries or territories subject to EU, US, or UN trade sanctions.
               </p>
               <p>
                 <strong>Checkout & payment:</strong> All payments are processed securely through Stripe®. Major credit cards and select digital wallets are accepted.
@@ -98,7 +101,7 @@ export default function TermsPage() {
                 <li>Japan, Singapore, Hong Kong SAR, South Korea, United Arab Emirates – €100</li>
               </ul>
               <p>
-                Import duties, VAT, or other customs fees (if applicable) are the buyer&rsquo;s responsibility and are not collected by this Site.
+                Import duties, VAT, or other customs fees (if applicable) are the buyer's responsibility and are not collected by this Site.
               </p>
             </div>
           </section>
@@ -142,7 +145,7 @@ export default function TermsPage() {
 
           {/* Packaging, Insurance & Tracking */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-serif font-light tracking-tight">6. Packaging, Insurance & Tracking</h2>
+            <h2 className="text-2xl font-serif font-light tracking-tight">6. Shipping Policy — Packaging, Insurance & Tracking</h2>
             <div className="elegant-divider mx-0"></div>
             <div className="space-y-4 text-foreground/80 font-light leading-relaxed">
               <p>
@@ -163,18 +166,18 @@ export default function TermsPage() {
             <div className="elegant-divider mx-0"></div>
             <div className="text-foreground/80 font-light leading-relaxed">
               <p>
-                Each Artwork ships with a hand-signed Certificate of Authenticity that states title, medium, dimensions, completion date, and bears an embossed studio seal.
+                Each Artwork ships with a hand‑signed Certificate of Authenticity that states title, medium, dimensions, completion date, and bears an embossed studio seal.
               </p>
             </div>
           </section>
 
           {/* Returns, Damage & Loss */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-serif font-light tracking-tight">8. Returns, Damage & Loss</h2>
+            <h2 className="text-2xl font-serif font-light tracking-tight">8. Refund & Return Policy</h2>
             <div className="elegant-divider mx-0"></div>
             <div className="space-y-4 text-foreground/80 font-light leading-relaxed">
               <p>
-                Because each piece is irreplaceable, all sales are final except in cases of transit damage or loss:
+                Because each piece is irreplaceable, all sales are final except in cases of transit damage or loss. Orders cannot be cancelled once payment has been captured.
               </p>
               <p>
                 <strong>Damage or loss claim</strong>
@@ -182,7 +185,7 @@ export default function TermsPage() {
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Inspect the parcel immediately upon arrival and photograph any visible damage.</li>
                 <li>Email lukianczukaleksander@gmail.com within 48 hours of delivery, attaching clear photos of the box and Artwork.</li>
-                <li>We will initiate a claim with the carrier&rsquo;s insurance. Once compensation is approved, you will receive a refund for the amount paid (including shipping).</li>
+                <li>We will initiate a claim with the carrier's insurance. Once compensation is approved, you will receive a refund for the amount paid (including shipping).</li>
               </ul>
               <p>
                 <strong>Lost shipment</strong>
@@ -199,7 +202,7 @@ export default function TermsPage() {
             <div className="elegant-divider mx-0"></div>
             <div className="text-foreground/80 font-light leading-relaxed">
               <p>
-                Every effort is made to photograph and describe each Artwork faithfully. Because monitors differ, minor colour variations between on-screen images and the physical painting do not constitute misdescription.
+                Every effort is made to photograph and describe each Artwork faithfully. Because monitors differ, minor colour variations between on‑screen images and the physical painting do not constitute misdescription.
               </p>
             </div>
           </section>
@@ -265,7 +268,7 @@ export default function TermsPage() {
             <div className="elegant-divider mx-0"></div>
             <div className="text-foreground/80 font-light leading-relaxed">
               <p>
-                Questions? Email lukianczukaleksander@gmail.com. I aim to reply as quickly as possible.
+                Questions? Email lukianczukaleksander@gmail.com.
               </p>
             </div>
           </section>
