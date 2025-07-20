@@ -101,7 +101,7 @@ export default function TermsPage() {
                 <li>Japan, Singapore, Hong Kong SAR, South Korea, United Arab Emirates – €100</li>
               </ul>
               <p>
-                Import duties, VAT, or other customs fees (if applicable) are the buyer's responsibility and are not collected by this Site.
+                Import duties, VAT, or other customs fees (if applicable) are the buyer&rsquo;s responsibility and are not collected by this Site.
               </p>
             </div>
           </section>
@@ -185,7 +185,7 @@ export default function TermsPage() {
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Inspect the parcel immediately upon arrival and photograph any visible damage.</li>
                 <li>Email lukianczukaleksander@gmail.com within 48 hours of delivery, attaching clear photos of the box and Artwork.</li>
-                <li>We will initiate a claim with the carrier's insurance. Once compensation is approved, you will receive a refund for the amount paid (including shipping).</li>
+                <li>We will initiate a claim with the carrier&rsquo;s insurance. Once compensation is approved, you will receive a refund for the amount paid (including shipping).</li>
               </ul>
               <p>
                 <strong>Lost shipment</strong>
@@ -268,7 +268,7 @@ export default function TermsPage() {
             <div className="elegant-divider mx-0"></div>
             <div className="text-foreground/80 font-light leading-relaxed">
               <p>
-                Questions? Email lukianczukaleksander@gmail.com.
+                Questions? Email lukianczukaleksander@gmail.com or phone +48 518 031 530.
               </p>
             </div>
           </section>
