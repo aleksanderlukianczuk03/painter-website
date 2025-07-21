@@ -21,6 +21,7 @@
     "bootstrap": "^5.3.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dotenv": "^17.2.0",
     "lucide-react": "^0.323.0",
     "next": "14.1.0",
     "next-sanity": "^7.0.17",
@@ -29,7 +30,7 @@
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18",
     "react-responsive-carousel": "^3.2.23",
-    "stripe": "^18.2.1",
+    "stripe": "^18.3.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },

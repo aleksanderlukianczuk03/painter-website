@@ -43,20 +43,20 @@ export default function ThankYouPage({
           <div className="elegant-divider"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-foreground/70">
             <div className="space-y-2">
-              <div className="font-medium text-foreground">Email Confirmation</div>
-              <div>You&apos;ll receive detailed order confirmation within minutes</div>
+              <div className="font-medium text-foreground">Personal Confirmation</div>
+              <div>Aleksander will email you personally within a few hours to confirm availability and varnish options</div>
+            </div>
+            <div className="space-y-2">
+              <div className="font-medium text-foreground">Artist Support</div>
+              <div>Direct contact with Aleksander for any questions or concerns</div>
             </div>
             <div className="space-y-2">
               <div className="font-medium text-foreground">Professional Packaging</div>
-              <div>Museum-quality materials ensure safe transit</div>
+              <div>Archival materials, double boxing, and corner protection ensure safe transit</div>
             </div>
             <div className="space-y-2">
-              <div className="font-medium text-foreground">Shipping Timeline</div>
-              <div>5-10 business days for domestic, 10-21 for international</div>
-            </div>
-            <div className="space-y-2">
-              <div className="font-medium text-foreground">Tracking Information</div>
-              <div>Full tracking details sent once your artwork ships</div>
+              <div className="font-medium text-foreground">Insured Shipping</div>
+              <div>Insurance coverage and delivery with tracking details</div>
             </div>
           </div>
         </div>
