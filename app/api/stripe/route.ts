@@ -53,11 +53,14 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Force EUR currency for all transactions
+    const currency = 'EUR';
+    
     console.log('🎨 Creating Stripe session for painting:', {
       id: painting.id,
       title: painting.title,
       price: painting.price,
-      currency: painting.currency || 'EUR'
+      currency: currency
     });
 
     // Validate price
@@ -96,7 +99,7 @@ export async function POST(request: NextRequest) {
       line_items: [
         {
           price_data: {
-            currency: painting.currency || 'EUR',
+            currency: currency,
             unit_amount: Math.round(painting.price * 100), // Ensure it's an integer
             product_data: {
               name: painting.title,

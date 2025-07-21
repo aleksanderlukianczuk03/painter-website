@@ -117,7 +117,7 @@ export default async function PaintingPage({params}: {params: {slug:string}}) {
                         
                         <div className="space-y-2">
                             <p className="text-3xl lg:text-4xl font-light tracking-wide">
-                                ${currentPainting.price.toLocaleString()}
+                                €{currentPainting.price ? currentPainting.price.toLocaleString() : 'Price not available'}
                             </p>
                             <p className="text-sm text-muted-foreground tracking-[0.1em] uppercase font-light">
                                 Original Artwork • One of One

@@ -28,7 +28,14 @@ async function getData() {
   }`;
 
   const data = await client.fetch(query);
-  return data;
+  // Filter out paintings with null/undefined required fields
+  return data.filter((painting: any) => 
+    painting.title && 
+    painting.currentSlug && 
+    painting.mainImage && 
+    painting.price !== null && 
+    painting.price !== undefined
+  );
 }
 
 export default async function OriginalsPage() {
@@ -124,7 +131,7 @@ export default async function OriginalsPage() {
 
                   <div className="space-y-2">
                     <p className="text-xl font-light tracking-wide">
-                      ${painting.price.toLocaleString()}
+                      €{painting.price ? painting.price.toLocaleString() : 'Price not available'}
                     </p>
                     {!painting.sold && (
                       <p className="text-xs text-muted-foreground tracking-[0.1em] uppercase">
