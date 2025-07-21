@@ -9,14 +9,22 @@ interface PaintingData {
   price: number;
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function handlePurchase(painting: PaintingData) {
     try {
-        console.log('🎨 Initiating purchase for painting:', {
+        console.log('🎨 Starting handlePurchase function');
+        console.log('🎨 Environment check:', {
+            nodeEnv: process.env.NODE_ENV,
+            hasStripeKey: !!process.env.STRIPE_SECRET_KEY,
+            stripeKeyLength: process.env.STRIPE_SECRET_KEY?.length || 0,
+            hasDomain: !!process.env.DOMAIN,
+            domain: process.env.DOMAIN
+        });
+
+        console.log('🎨 Received painting data:', {
             id: painting.currentSlug,
             title: painting.title,
-            price: painting.price
+            price: painting.price,
+            type: typeof painting.price
         });
         
         // Validate input data
@@ -44,6 +52,25 @@ export async function handlePurchase(painting: PaintingData) {
                 console.error(`❌ Missing required environment variable: ${envVar}`);
                 throw new Error(`Missing environment variable: ${envVar}`);
             }
+        }
+
+        console.log('🔍 Checking environment variables...');
+        for (const envVar of requiredEnvVars) {
+            if (!process.env[envVar]) {
+                console.error(`❌ Missing required environment variable: ${envVar}`);
+                throw new Error(`Missing environment variable: ${envVar}`);
+            }
+            console.log(`✅ ${envVar}: ${envVar === 'STRIPE_SECRET_KEY' ? 'PRESENT' : process.env[envVar]}`);
+        }
+
+        console.log('🎨 Initializing Stripe...');
+        let stripe;
+        try {
+            stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+            console.log('✅ Stripe initialized successfully');
+        } catch (stripeInitError) {
+            console.error('❌ Failed to initialize Stripe:', stripeInitError);
+            throw new Error('Failed to initialize payment processor');
         }
 
         console.log('🎨 Creating Stripe session for painting:', {
@@ -103,16 +130,21 @@ export async function handlePurchase(painting: PaintingData) {
             url: session.url
         });
 
-        console.log('🔄 Redirecting to:', session.url);
+        console.log('🔄 About to redirect to:', session.url);
         redirect(session.url);
     } catch (error) {
         // Check if this is a Next.js redirect (which is expected behavior)
-        if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
-            // This is expected - let the redirect happen
+        if (error instanceof Error && (error.message === 'NEXT_REDIRECT' || error.message.includes('NEXT_REDIRECT'))) {
+            console.log('✅ Redirect happening (this is expected)');
             throw error;
         }
         
-        console.error('❌ Purchase error:', error);
+        console.error('❌ Purchase error occurred:', {
+            message: error instanceof Error ? error.message : 'Unknown error',
+            stack: error instanceof Error ? error.stack : undefined,
+            type: typeof error,
+            error: error
+        });
         
         // Handle specific Stripe errors
         if (error instanceof Stripe.errors.StripeError) {
