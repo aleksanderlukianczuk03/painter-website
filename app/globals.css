@@ -88,7 +88,9 @@
   .premium-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 clamp(1rem, 5vw, 3rem);
+    /* padding: 0 clamp(1rem, 5vw, 3rem); */ /* overrides pb-* */
+    padding-left: clamp(1rem, 5vw, 3rem);
+    padding-right: clamp(1rem, 5vw, 3rem);
   }
   
   .premium-shadow-subtle {

@@ -44,9 +44,9 @@ export default async function OriginalsPage() {
   const totalCount = data.length;
 
   return (
-    <div className="premium-container py-20">
+    <div className="premium-container">
       {/* Header Section - Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-16">
         {/* Left: Collection Title and Info */}
         <div className="text-left space-y-6">
           <div className="space-y-4">
@@ -84,7 +84,7 @@ export default async function OriginalsPage() {
       </div>
 
       {/* Paintings Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-12 mb-8">
         {data.map((painting, idx) => (
           <div key={idx} className="group relative">
             <Link href={`/painting/${painting.currentSlug}`}>
@@ -96,17 +96,17 @@ export default async function OriginalsPage() {
                       src={urlFor(painting.mainImage).url()}
                       alt={painting.title}
                       fill
-                      className="object-contain bg-white transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      className="object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     />
                   </div>
 
                   {/* Status Badge */}
                   {painting.sold ? (
-                    <div className="absolute top-4 right-4 bg-background/95 backdrop-blur-sm text-muted-foreground border border-muted-foreground/30 px-3 py-1 text-xs font-medium tracking-wider uppercase">
+                    <div className="absolute top-4 right-4 bg-background/95 backdrop-blur-sm text-muted-foreground border border-muted-foreground/30 px-3 py-1 text-xs font-medium tracking-wider uppercase z-10">
                       Sold
                     </div>
                   ) : (
-                    <div className="absolute top-4 right-4 bg-background/95 backdrop-blur-sm text-premium-gold border border-premium-gold/30 px-3 py-1 text-xs font-medium tracking-wider uppercase">
+                    <div className="absolute top-4 right-4 bg-background/95 backdrop-blur-sm text-premium-gold border border-premium-gold/30 px-3 py-1 text-xs font-medium tracking-wider uppercase z-10">
                       Available
                     </div>
                   )}

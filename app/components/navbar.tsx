@@ -7,7 +7,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="py-8 border-b border-border/30">
+    <header className="py-6 md:py-8 border-b border-border/30">
       <div className="premium-container">
         <div className="flex flex-col items-center text-center ">
           {/* Artist Name / Logo */}

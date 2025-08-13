@@ -79,119 +79,119 @@ export default async function PaintingPage({params}: {params: {slug:string}}) {
     const allImages = [currentPainting.mainImage, ...(currentPainting.galleryMedia || [])].filter(Boolean);
 
     return (
-        <div className="premium-container py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
-                {/* Image Carousel Section */}
-                <div className="lg:sticky top-24 h-fit">
-                    <div className="space-y-6">
-                        <ImageCarousel images={allImages} />
-                        {allImages.length > 1 && (
-                            <p className="text-center text-xs text-muted-foreground tracking-[0.1em] uppercase">
-                                {allImages.length} Views Available
-                            </p>
-                        )}
-                    </div>
-                </div>
-
-                {/* Painting Details Section */}
-                <div className="flex flex-col space-y-12">
-                    {/* Header */}
-                    <div className="space-y-6">
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-4">
-                                {currentPainting.sold ? (
-                                    <div className="scarcity-indicator bg-muted text-muted-foreground border-muted-foreground/30">
-                                        Sold
-                                    </div>
-                                ) : (
-                                    <div className="scarcity-indicator">
-                                        Available Now
-                                    </div>
-                                )}
-                            </div>
-                            
-                            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-serif font-light tracking-tight leading-tight">
-                                {currentPainting.title}
-                            </h1>
-                        </div>
-                        
-                        <div className="space-y-2">
-                            <p className="text-3xl lg:text-4xl font-light tracking-wide">
-                                €{currentPainting.price ? currentPainting.price.toLocaleString() : 'Price not available'}
-                            </p>
-                            <p className="text-sm text-muted-foreground tracking-[0.1em] uppercase font-light">
-                                Original Artwork • One of One
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="elegant-divider"></div>
-                    
-                    {/* Description */}
-                    <div className="space-y-8">
-                        <div className="prose prose-lg max-w-none">
-                            <p className="text-lg font-light leading-relaxed text-foreground/90">
-                                {currentPainting.description}
-                            </p>
-                        </div>
-                        
-                        {/* Specifications */}
-                        <div className="grid grid-cols-2 gap-6 text-sm">
-                            {currentPainting.dimensions && (
-                                <div className="space-y-1">
-                                    <p className="text-muted-foreground tracking-[0.1em] uppercase font-light">Dimensions</p>
-                                    <p className="font-light">{currentPainting.dimensions}</p>
-                                </div>
-                            )}
-                            {currentPainting.medium && (
-                                <div className="space-y-1">
-                                    <p className="text-muted-foreground tracking-[0.1em] uppercase font-light">Medium</p>
-                                    <p className="font-light">{currentPainting.medium}</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    {/* Purchase Section */}
-                    <div className="space-y-6 pt-8">
-                        {currentPainting.sold ? (
-                            <div className="space-y-4">
-                                <Button size="lg" className="w-full btn-premium" disabled>
-                                    Sold to Private Collector
-                                </Button>
-                                {currentPainting.soldAt && (
-                                    <p className="text-center text-xs text-muted-foreground tracking-[0.1em] uppercase">
-                                        Acquired {new Date(currentPainting.soldAt).toLocaleDateString('en-US', { 
-                                            month: 'long', 
-                                            year: 'numeric' 
-                                        })}
-                                    </p>
-                                )}
-                            </div>
-                        ) : (
-                            <div className="space-y-4">
-                                <form action={handlePurchase.bind(null, paintingData)}>
-                                    <Button
-                                        size="lg"
-                                        className="w-full btn-premium h-14 text-base"
-                                        type="submit"
-                                    > 
-                                        Acquire Original
-                                    </Button>
-                                </form>
-                                <div className="text-center space-y-2">
-                                    <p className="text-xs text-muted-foreground tracking-[0.1em] uppercase">
-                                        Secure Checkout • Worldwide Shipping
-                                    </p>
-                                    <p className="text-xs text-muted-foreground">
-                                        Certificate of Authenticity Included
-                                    </p>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
+      <div className="premium-container">
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
+          {/* Image Carousel Section */}
+          <div className="lg:sticky top-24 h-fit">
+            <div className="space-y-6">
+              <ImageCarousel images={allImages} />
+              {allImages.length > 1 && (
+                <p className="text-center text-xs text-muted-foreground tracking-[0.1em] uppercase">
+                  {allImages.length} Views Available
+                </p>
+              )}
             </div>
+          </div>
+
+          {/* Painting Details Section */}
+          <div className="flex flex-col space-y-12">
+            {/* Header */}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  {currentPainting.sold ? (
+                    <div className="scarcity-indicator bg-muted text-muted-foreground border-muted-foreground/30">
+                      Sold
+                    </div>
+                  ) : (
+                    <div className="scarcity-indicator">
+                      Available Now
+                    </div>
+                  )}
+                </div>
+                
+                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-serif font-light tracking-tight leading-tight">
+                  {currentPainting.title}
+                </h1>
+              </div>
+              
+              <div className="space-y-2">
+                <p className="text-3xl lg:text-4xl font-light tracking-wide">
+                  €{currentPainting.price ? currentPainting.price.toLocaleString() : 'Price not available'}
+                </p>
+                <p className="text-sm text-muted-foreground tracking-[0.1em] uppercase font-light">
+                  Original Artwork • One of One
+                </p>
+              </div>
+            </div>
+
+            <div className="elegant-divider"></div>
+            
+            {/* Description */}
+            <div className="space-y-8">
+              <div className="prose prose-lg max-w-none">
+                <p className="text-lg font-light leading-relaxed text-foreground/90">
+                  {currentPainting.description}
+                </p>
+              </div>
+              
+              {/* Specifications */}
+              <div className="grid grid-cols-2 gap-6 text-sm">
+                {currentPainting.dimensions && (
+                  <div className="space-y-1">
+                    <p className="text-muted-foreground tracking-[0.1em] uppercase font-light">Dimensions</p>
+                    <p className="font-light">{currentPainting.dimensions}</p>
+                  </div>
+                )}
+                {currentPainting.medium && (
+                  <div className="space-y-1">
+                    <p className="text-muted-foreground tracking-[0.1em] uppercase font-light">Medium</p>
+                    <p className="font-light">{currentPainting.medium}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Purchase Section */}
+            <div className="space-y-6 pt-8">
+              {currentPainting.sold ? (
+                <div className="space-y-4">
+                  <Button size="lg" className="w-full btn-premium h-14 text-base whitespace-nowrap" disabled>
+                    Sold to Private Collector
+                  </Button>
+                  {currentPainting.soldAt && (
+                    <p className="text-center text-xs text-muted-foreground tracking-[0.1em] uppercase">
+                      Acquired {new Date(currentPainting.soldAt).toLocaleDateString('en-US', { 
+                          month: 'long', 
+                          year: 'numeric' 
+                      })}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <form action={handlePurchase.bind(null, paintingData)}>
+                    <Button
+                      size="lg"
+                      className="w-full btn-premium h-14 text-base"
+                      type="submit"
+                    > 
+                      Acquire Original
+                    </Button>
+                  </form>
+                  <div className="text-center space-y-2">
+                    <p className="text-xs text-muted-foreground tracking-[0.1em] uppercase">
+                      Secure Checkout • Worldwide Shipping
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Certificate of Authenticity Included
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
+      </div>
     );
 }

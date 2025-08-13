@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { urlFor, client } from '../lib/sanity';
 import { ChevronLeft, ChevronRight, X, ZoomIn, Play } from 'lucide-react';
@@ -13,6 +14,17 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (!mounted) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = isModalOpen ? 'hidden' : prev || '';
+    return () => { document.body.style.overflow = prev; };
+  }, [isModalOpen, mounted]);
 
   if (!images || images.length === 0) {
     return <div>No images available.</div>;
@@ -95,7 +107,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
           alt={`Painting view ${currentIndex + 1}`}
           fill
           priority={currentIndex === 0}
-          className={`object-cover transition-opacity duration-500 ease-in-out ${isModal ? 'object-contain' : ''} ${isModal && isZoomed ? 'scale-125' : 'scale-100'}`}
+          className={`object-contain transition-opacity duration-500 ease-in-out ${isModal && isZoomed ? 'scale-125' : 'scale-100'}`}
         />
       );
     }
@@ -106,7 +118,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
       {/* The main carousel on the page */}
       <div className="relative w-full h-full group">
         <div 
-          className="relative w-full aspect-square overflow-hidden rounded-lg cursor-zoom-in"
+          className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 cursor-zoom-in"
           onClick={openModal}
         >
           {renderMedia(images[currentIndex])}
@@ -140,27 +152,47 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
         )}
       </div>
 
-      {/* The Modal for the zoomed-in view */}
-      {isModalOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+      {/* The Modal for the zoomed-in view (ported to body) */}
+      {mounted && isModalOpen && createPortal(
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-[100000]"
           onClick={closeModal}
         >
-          <button 
-            className="absolute top-4 right-4 text-white hover:text-gray-300 z-50"
+          <button
+            className="absolute top-4 right-4 text-white hover:text-gray-300 z-[100001]"
             onClick={closeModal}
             aria-label="Close"
           >
             <X size={32} />
           </button>
 
-          <div 
+          <div
             className="relative w-[90vw] h-[90vh] cursor-zoom-in"
             onClick={isVideo(images[currentIndex]) ? undefined : toggleZoom}
           >
             {renderMedia(images[currentIndex], true)}
           </div>
-        </div>
+
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={goToPrevious}
+                className="absolute top-1/2 left-4 -translate-y-1/2 bg-white/20 text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300 z-[100001]"
+                aria-label="Previous image"
+              >
+                <ChevronLeft size={32} />
+              </button>
+              <button
+                onClick={goToNext}
+                className="absolute top-1/2 right-4 -translate-y-1/2 bg-white/20 text-white p-3 rounded-full hover:bg-white/30 transition-all duration-300 z-[100001]"
+                aria-label="Next image"
+              >
+                <ChevronRight size={32} />
+              </button>
+            </>
+          )}
+        </div>,
+        document.body
       )}
     </>
   );

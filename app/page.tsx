@@ -13,7 +13,7 @@ export default function Home() {
           <div className="hero-image premium-shadow-elevated bg-background p-8 inline-block">
             <div className="relative">
               <Image
-                src="/IMG_20250629_122835 - Copy.jpg"
+                src="/deepest-love.jpg"
                 alt="Deepest Love - Original Oil Painting"
                 width={400}
                 height={500}
@@ -27,7 +27,7 @@ export default function Home() {
               Deepest Love
             </h1>
             <p className="text-muted-foreground tracking-[0.1em] uppercase text-sm font-light">
-              Oil on Linen • 16&rdquo; × 20&rdquo;
+              Oil on Linen • 11&rdquo; × 14&rdquo;
             </p>
             <div className="scarcity-indicator mx-auto">
               Original • One of One
@@ -50,9 +50,7 @@ export default function Home() {
 
           <div className="space-y-6 text-muted-foreground">
             <p className="text-lg font-light leading-relaxed">
-              Each painting in this collection represents months of dedicated work,
-              capturing the ephemeral beauty of flowers in their most intimate
-              moments.
+              Each painting preserves the timeless elegance of flowers, celebrating their beauty in its purest form.
             </p>
             <p className="text-base font-light leading-relaxed">
               Limited to original pieces only. Once sold, these works become part

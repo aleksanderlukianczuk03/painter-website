@@ -8,16 +8,9 @@ export const metadata: Metadata = {
 
 export default function AuthorPage() {
   return (
-    <div className="premium-container py-20">
+    <div className="premium-container">
       <div className="max-w-5xl mx-auto">
-        {/* Header Section - Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-          {/* Left: Page Title and Info */}
-          <div></div>
-
-          {/* Right: Empty or could add another quote/element later */}
-          <div></div>
-        </div>
+        {/* Removed empty header section to tighten top spacing */}
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -67,7 +60,7 @@ He honed his artistic skills through teachings by renowned American painter Eliz
             
             <div className="pt-4">
               <div className="scarcity-indicator inline-flex">
-                Based in Warsaw • 200K+ Followers • Contemporary Painter
+                Based in Warsaw
               </div>
             </div>
           </div>

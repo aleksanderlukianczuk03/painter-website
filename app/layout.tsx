@@ -46,7 +46,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${lora.variable} font-sans`}>
         <Navbar />
-        <main className="max-w-full mx-auto px-6 sm:px-20 lg:px-40">{children}</main>
+        <main className="max-w-full mx-auto px-6 sm:px-20 lg:px-40 pt-6 md:pt-8 pb-12 md:pb-16">
+          {children}
+        </main>
       </body>
     </html>
   );
