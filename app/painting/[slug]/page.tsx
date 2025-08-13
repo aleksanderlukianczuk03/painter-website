@@ -151,7 +151,7 @@ export default async function PaintingPage({params}: {params: {slug:string}}) {
                 )}
               </div>
             </div>
-
+ 
             {/* Purchase Section */}
             <div className="space-y-6 pt-8">
               {currentPainting.sold ? (
